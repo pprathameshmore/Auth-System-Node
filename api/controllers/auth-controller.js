@@ -47,4 +47,28 @@ exports.signin_request = (req, res) => {
 exports.signup_request = (req, res) => {
     var credentials = "";
 
+    req.on('data', (chuck) => {
+        credentials += chuck.toString();
+    });
+
+    req.on('end', () => {
+        var credentialsBody = JSON.parse(credentials);
+        console.log(credentialsBody);
+        db.query('INSERT INTO users (username, password) VALUES ( "' + credentialsBody.username + '","' + credentialsBody.password + '") ', (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+            }
+        });
+
+        const response = {
+            message: "Registration successful"
+        }
+        res.statuCode = 200;
+        res.setHeader('Content-Type', "application/json");
+        res.end(JSON.stringify(response));
+
+    });
+
 }

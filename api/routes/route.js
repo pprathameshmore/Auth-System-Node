@@ -16,7 +16,7 @@ module.exports = http.createServer((req, res) => {
         authController.signin_request(req, res);
     }
 
-    if (reqUrl.path === '/signup' && req.method === 'GET') {
+    if (reqUrl.path === '/signup' && req.method === 'POST') {
         console.log("Signup request hitted");
         console.log(req);
         authController.signup_request(req, res);
