@@ -15,5 +15,4 @@ conn.connect((err) => {
     }
 });
 
-
 module.exports = conn;
